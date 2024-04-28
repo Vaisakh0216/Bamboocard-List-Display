@@ -1,40 +1,29 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import Card from "../components/Card";
+import useGetAllUsers from "../hooks/useGetAllUsers";
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-`;
+function Home() {
+  const apiUrl = "https://jsonplaceholder.typicode.com/users";
+  const { result: usersList, loading, error } = useGetAllUsers(apiUrl);
 
-const StyledSpan = styled.span`
-  padding: 20px;
-  border-radius: 5px;
-  color: white;
-  font-size: 26px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  animation: popUp 0.3s ease-in-out forwards;
+  console.log("usersList", usersList);
 
-  @keyframes popUp {
-    from {
-      opacity: 0;
-      transform: translateY(100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-`;
-
-const Home = () => {
   return (
-    <Container>
-      <StyledSpan>Home</StyledSpan>
-    </Container>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexWrap: "wrap",
+        gap: "10px",
+        marginBottom: "40px",
+      }}
+    >
+      {usersList?.map((user) => (
+        <Card user={user} loading={loading} />
+      ))}
+    </div>
   );
-};
+}
 
 export default Home;
