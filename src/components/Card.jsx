@@ -5,7 +5,6 @@ import styled from "styled-components";
 
 const StyledCard = styled(Box)`
   width: 280px;
-  height: 300px;
   max-width: 340px;
   max-height: 359px;
   margin: 0px 10px 10px;
@@ -76,10 +75,10 @@ const Website = styled.a`
   text-align: left;
 `;
 
-const CardWrapper = ({ user, loading }) => {
+const CardWrapper = ({ user, isLoading }) => {
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <Skeleton
           variant="rectangular"
           sx={{ width: "280px", height: "300px", borderRadius: "10px" }}

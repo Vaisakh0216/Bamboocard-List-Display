@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import useGetAllUsers from "../hooks/useGetAllUsers";
+import styled from "styled-components";
+
+const StyledDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
+`;
 
 function Home() {
   const apiUrl = "https://jsonplaceholder.typicode.com/users";
-  const { result: usersList, loading, error } = useGetAllUsers(apiUrl);
-
-  console.log("usersList", usersList);
+  const { result: usersList, isLoading } = useGetAllUsers(apiUrl);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexWrap: "wrap",
-        gap: "10px",
-        marginBottom: "40px",
-      }}
-    >
+    <StyledDiv>
       {usersList?.map((user) => (
-        <Card user={user} loading={loading} />
+        <Card key={user.id} user={user} isLoading={isLoading} />
       ))}
-    </div>
+    </StyledDiv>
   );
 }
 
